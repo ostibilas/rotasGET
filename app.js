@@ -3,21 +3,23 @@ const app = express();
 const PORT = 8081;
 
 app.get('/', (req, res) => {
-    res.send('Servidor com a rota da atividade 02 para enviar digite Acesse /calculadora')
+    res.send('Servidor com a rota da atividade 03 para enviar digite Acesse /operacao/:tipo ')
 })
 
-app.get('/calculadora', (req, res) => {
+app.get('/operacao/:tipo', (req, res) => {
 
-    const { operacao, numUm, numDois } = req.query
+    const { numUm, numDois } = req.query
+
+    const tipoConta = req.params.tipo;
 
     const n1 = parseInt(numUm);
     const n2 = parseInt(numDois);
 
-    if (!operacao || isNaN(n1) || isNaN(n2)) {
+    if (!tipoConta || isNaN(n1) || isNaN(n2)) {
         return res.status(400).send('Erro: Dados inválidos ou faltando!!!');
     }
 
-    switch (operacao) {
+    switch (tipoConta) {
         case 'soma':
             resultado = n1 + n2;
             break;
@@ -37,7 +39,7 @@ app.get('/calculadora', (req, res) => {
             return res.status(400).send('Erro: Operação não reconhecida. Use soma, subtracao, multiplicacao ou divisao.');
     }
 
-    res.send(`Resultado da ${operacao} é: ${resultado}`);
+    res.send(`Resultado da ${tipoConta} é: ${resultado}`);
 
 })
 
